@@ -55,45 +55,14 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
 				
 	    	}
 	    }
-            //final String pageContents = this.getPageContents("https://checkip.amazonaws.com");
 	    Region region = Region.US_EAST_1;
 	    S3Client s3 = S3Client.builder().region(region).build();
-	    //final Map<String,String> query;
-	    //if ( input != null ) {
-	//	query  = input.getQueryStringParameters();	
-	  //  } else {
-	//	query = new HashMap<String,String>(); 
-	  //  }
-	    //String p = "";	    
-	    //StringBuilder mapAsString = new StringBuilder("\"");
-	    //for (String key : query.keySet()) {
-		//mapAsString.append(key + "=" + query.get(key) + ", ");
-	    //}
-	    //mapAsString.append("\"");
-	    //if ( ! query.containsKey("bucket") ) {
-	    	//query.put("bucket","wed-green1-bucket");
-
-	//	    return response
-	//		    .withStatusCode(404)
-	//		    .withBody("Parameter 'bucket' required.");
-		//    throw new Exception("query parameter 'bucket' required");
-	  //  } 
-		    
-	    //String bucketName = query.get("bucket");
 	    List<String> objects = listBucketObjects(s3, bucketName);
-	    //String objs = Arrays.toString(objects);
 	    String objs = objects.toString();
 	    System.out.println("bucket="+bucketName+"Your objects are:"+objs);
-            //String output = String.format("{ \"message\": \"halloween world\", \"location\": \"%s\" }", pageContents);
-	    //String output = String.format("[\"body\", \"%s\", \"p\", \"%s\"]", body, mapAsString);
-	    //
-            //return response
-            //        .withStatusCode(200)
-            //        .withBody(output);
             return response
                     .withStatusCode(200)
                     .withBody(objs);
-        //} catch (IOException e) {
         } catch (Exception e) {
 	    System.out.println("ERROR =======> " + e);
             return response
@@ -137,11 +106,12 @@ public class App implements RequestHandler<APIGatewayProxyRequestEvent, APIGatew
     }
 
 
-
+    /*
     private String getPageContents(String address) throws IOException{
         URL url = new URL(address);
         try(BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()))) {
             return br.lines().collect(Collectors.joining(System.lineSeparator()));
         }
     }
+    */
 }

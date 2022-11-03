@@ -7,12 +7,12 @@ bucket="$3"
 date
 echo "url: $url
 rate: $max calls / second
-bucket: $bucket"
 echo "bucket:"
+bucket: $bucket"
 START=$(date +%s);
 
-get () {
-  curl -d "{\"bucket\":\"$2\"}" \
+post () {
+  curl -X POST -d "{\"bucket\":\"$2\"}" \
       -s -v "$1" 2>&1 | tr '\r\n' '\\n' | awk -v date="$(date +'%r')" '{print $0"\n-----", date}' >> /tmp/perf-test.log
 }
 
@@ -23,6 +23,6 @@ do
 
   for i in `seq 1 $max`
   do
-    get $url $bucket &
+    post $url $bucket &
   done
 done
